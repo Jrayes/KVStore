@@ -1,0 +1,17 @@
+<% layout('layout') -%>
+
+<div class="table-responsive">
+    <table id="table-cluster" class="table table-striped">
+            <thead>
+                <th>Results</th>
+            </thead>
+            <% for (var property in data) { %>
+                <tr><td><%= property %></td> <td><%= data[property] %></td></tr>
+            <% } %>
+            <tbody>
+            </tbody>
+    </table>
+
+</div>
+
+
