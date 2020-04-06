@@ -4,6 +4,7 @@ KVStore
 Key value store
 
 ## Url
+http://ec2-3-17-142-153.us-east-2.compute.amazonaws.com:3000/
 
 ## How to use 
 1. You can set the value for a key
