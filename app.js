@@ -31,7 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 app.use('/list', function(req, res) {
-    res.render('lists', {title: 'List', val: objStore});
+    var offset = req.query.offset || 0;
+    var limit = req.query.limit || 50;
+    res.render('lists', {title: 'List', val: objStore, offset: offset, limit: limit});
 });
   
 /* set key */
@@ -52,9 +54,17 @@ app.post('/store', function(req, res) {
 
 /* GET key-values listing. */
 app.get('/store', function(req, res) {
+    
+    var offset = req.query.offset || 0;
+    var limit = req.query.limit || 50;
     let result = {};
+    let count = 0;
     for (const [key, value] of objStore.entries()) {
+        if (count >= limit) {
+            return res.json(result);
+        }
         result[key] = value;
+        count++;
     }
     return res.json(result);
 });

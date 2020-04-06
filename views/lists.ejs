@@ -7,8 +7,13 @@
                 <th>Value</th>
             </thead>
             <tbody>
-            <% for (const [key, value] of val.entries()) {%>
+                <% var count=0; %>
+            <% for (const [key, value] of val.entries()) { %>
+                <% if (count == limit) { %>
+                   <% break; %>
+                <% } %>
                     <tr><td><%= key %></td> <td><%= value %></td></tr>
+                    <% count++;%>
                 <% } %>
             </tbody>
     </table>

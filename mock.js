@@ -31,7 +31,9 @@ function run(callback) {
     mock.use('/', routes);
 
     mock.use('/list', function(req, res) {
-        res.render('lists', {title: 'List', val: objStore});
+        var offset = req.query.offset || 0;
+        var limit = req.query.limit || 50;
+        res.render('lists', {title: 'List', val: objStore, offset: offset, limit: limit});
     });
     
     /* set key */
@@ -49,12 +51,19 @@ function run(callback) {
         }
 
     });
-
     /* GET key-values listing. */
     mock.get('/store', function(req, res) {
+        
+        var offset = req.query.offset || 0;
+        var limit = req.query.limit || 50;
         let result = {};
+        let count = 0;
         for (const [key, value] of objStore.entries()) {
+            if (count >= limit) {
+                return res.json(result);
+            }
             result[key] = value;
+            count++;
         }
         return res.json(result);
     });
